@@ -1,9 +1,15 @@
-a, b = map(int, input().split(" "))
-if b >= 45:
-    print(a, b-45)
-else:
-    b = b + 15
-    a = a - 1
-    if a == -1:
-        a = 23
-    print(a, b)
+import sys
+
+N = int(sys.stdin.readline())
+cN = N
+flag = True
+answer = 0
+
+while flag == True:
+    ten = (cN % 10) * 10
+    one = (int(cN / 10) + cN % 10) % 10
+    cN = ten + one
+    answer += 1
+    if cN == N:
+        flag = False
+print(answer)
