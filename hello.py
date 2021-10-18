@@ -1,15 +1,24 @@
 import sys
-X = int(input())
+N, M, K = map(int, sys.stdin.readline().split())
+num_list = list(map(int, sys.stdin.readline().split()))
 
-cnt = 1
-while X > cnt:
-    X -= cnt
-    cnt += 1
+biggest = 0
+big = 0
+answer = 0
+for x in num_list:
+    if x >= biggest:
+        big = biggest
+        biggest = x
 
-if cnt % 2 == 0:
-    a = (1 + (X-1))
-    b = (cnt - (X-1))
-else:
-    a = (cnt - (X-1))
-    b = (1 + (X-1))
-print(str(a) + "/" + str(b))
+while M > 0:
+    for i in range(1, K+1):
+        answer += biggest
+        M -= 1
+        if M <= 0:
+            break
+    if M <= 0:
+        break
+    else:
+        answer += big
+        M -= 1
+print(answer)
