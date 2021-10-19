@@ -1,24 +1,14 @@
 import sys
-N, M, K = map(int, sys.stdin.readline().split())
-num_list = list(map(int, sys.stdin.readline().split()))
-
-biggest = 0
-big = 0
-answer = 0
-for x in num_list:
-    if x >= biggest:
-        big = biggest
-        biggest = x
-
-while M > 0:
-    for i in range(1, K+1):
-        answer += biggest
-        M -= 1
-        if M <= 0:
-            break
-    if M <= 0:
-        break
+T = int(sys.stdin.readline())
+for _ in range(T):
+    H, W, N = map(int, sys.stdin.readline().split())
+    if N % H == 0:
+        X = N // H
+        Y = H
     else:
-        answer += big
-        M -= 1
-print(answer)
+        X = 1 + (N // H)
+        Y = N % H
+    if X < 10:
+        X = "0" + str(X)
+    answer = str(Y) + str(X)
+    print(answer)
