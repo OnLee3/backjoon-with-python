@@ -1,14 +1,14 @@
 import sys
 T = int(sys.stdin.readline())
+people = [[0 for j in range(14)] for i in range(15)]
+for i in range(15):
+    people[i][0] = 1
+for j in range(14):
+    people[0][j] = j + 1
+for i in range(1, 15):
+    for j in range(1, 14):
+        people[i][j] = people[i][j - 1] + people[i - 1][j]
 for _ in range(T):
-    H, W, N = map(int, sys.stdin.readline().split())
-    if N % H == 0:
-        X = N // H
-        Y = H
-    else:
-        X = 1 + (N // H)
-        Y = N % H
-    if X < 10:
-        X = "0" + str(X)
-    answer = str(Y) + str(X)
-    print(answer)
+    k = int(sys.stdin.readline())
+    n = int(sys.stdin.readline())
+    print(people[k][n-1])
