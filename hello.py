@@ -1,15 +1,25 @@
 import sys
 N = int(sys.stdin.readline())
-num_list = list(map(int, sys.stdin.readline().split()))
-answer = 0
+M = int(sys.stdin.readline())
+answer = []
 
-for i in num_list:
-    if i == 1:
-        continue
-    cnt = 0
-    for j in range(1, i+1):
-        if i % j == 0:
-            cnt += 1
-    if cnt == 2:
-        answer += 1
-print(answer)
+
+def solve(N, M):
+    for i in range(N, M+1):
+        if i == 1:
+            continue
+        flag = True
+        for j in range(2, i):
+            if i % j == 0:
+                flag = False
+                break
+        if flag == True:
+            answer.append(i)
+    if len(answer) > 0:
+        print(sum(answer))
+        print(min(answer))
+    else:
+        print(-1)
+
+
+solve(N, M)
