@@ -1,18 +1,19 @@
 import sys
-M, N = map(int, sys.stdin.readline().split())
-R = int(N ** 0.5)
-N += 1
-L = [True] * (N)
 
 
-def solve(N, M):
+def solve(N):
+    R = int((N*2) ** 0.5)
+    M = ((N*2)+1)
+    L = [True] * M
     for i in range(2, R+1):
         if L[i] == True:
-            for j in range(i+i, N, i):
+            for j in range(i+i, M, i):
                 L[j] = False
-    for i in range(M, N):
-        if i > 1 and L[i] == True:
-            print(i)
+    print(L[N+1:M].count(True))
 
 
-solve(N, M)
+while True:
+    N = int(sys.stdin.readline())
+    if N == 0:
+        break
+    solve(N)
