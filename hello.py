@@ -1,21 +1,13 @@
 import sys
 
-xList = []
-yList = []
-
-for i in range(3):
-    a, b = map(int, sys.stdin.readline().split())
-    xList.append(a)
-    yList.append(b)
-
-for i in xList:
-    if xList.count(i) == 1:
-        x = i
+while True:
+    num = list(map(int, sys.stdin.readline().split()))
+    maxN = max(num)
+    if maxN == 0:
         break
+    num.remove(maxN)
 
-for i in yList:
-    if yList.count(i) == 1:
-        y = i
-        break
-
-print(x, y)
+    if ((num[0] ** 2) + (num[1] ** 2)) ** 0.5 == maxN:
+        print("right")
+    else:
+        print("wrong")
