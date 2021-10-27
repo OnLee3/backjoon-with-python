@@ -1,13 +1,7 @@
 import sys
+import math
 
-while True:
-    num = list(map(int, sys.stdin.readline().split()))
-    maxN = max(num)
-    if maxN == 0:
-        break
-    num.remove(maxN)
+R = int(sys.stdin.readline())
 
-    if ((num[0] ** 2) + (num[1] ** 2)) ** 0.5 == maxN:
-        print("right")
-    else:
-        print("wrong")
+print(format(R**2*math.pi, ".6f"))
+print(format(R**2*2, ".6f"))
