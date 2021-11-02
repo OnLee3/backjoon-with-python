@@ -1,17 +1,16 @@
 import sys
 
 N = int(sys.stdin.readline())
-
-cnt = 2
-answer = 1
+A = [0, 1]
 
 
-def solve(N, cnt, answer):
+def solve(A, cnt):
     if cnt > N:
-        return print(answer)
-    answer = answer * cnt
-    cnt += 1
-    solve(N, cnt, answer)
+        print(A[N])
+    else:
+        A.append(A[cnt-2] + A[cnt-1])
+        cnt += 1
+        solve(A, cnt)
 
 
-solve(N, cnt, answer)
+solve(A, 2)
