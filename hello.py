@@ -1,16 +1,20 @@
 import sys
 
-N = int(sys.stdin.readline())
+N, M = map(int, sys.stdin.readline().split())
+A = list(map(int, sys.stdin.readline().split()))
+Max = 300000
+Answer = 0
 
 
-def solve(Disk, From, To, Sub):
-    if Disk == 1:
-        print(From, To)
-    else:
-        solve(Disk-1, From, Sub, To)
-        print(From, To)
-        solve(Disk-1, Sub, To, From)
+def solve(N, M, A, Max, Answer):
+    for i in range(N):
+        for j in range(i+1, N):
+            for k in range(j+1, N):
+                Sum = A[i]+A[j]+A[k]
+                if M-Sum < Max and Sum <= M:
+                    Max = M-Sum
+                    Answer = Sum
+    return Answer
 
 
-print(2**N-1)
-solve(N, 1, 3, 2)
+print(solve(N, M, A, Max, Answer))
