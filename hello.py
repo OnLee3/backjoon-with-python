@@ -2,20 +2,15 @@ import sys
 
 N = int(sys.stdin.readline())
 
-stars = [[" " for _ in range(N)] for _ in range(N)]
 
-
-def solve(size, x, y):
-    if size == 1:
-        stars[y][x] = "*"
+def solve(Disk, From, To, Sub):
+    if Disk == 1:
+        print(From, To)
     else:
-        next_size = size // 3
-        for dy in range(3):
-            for dx in range(3):
-                if dy != 1 or dx != 1:
-                    solve(next_size, x + dx * next_size, y + dy * next_size)
+        solve(Disk-1, From, Sub, To)
+        print(From, To)
+        solve(Disk-1, Sub, To, From)
 
 
-solve(N, 0, 0)
-for i in stars:
-    print("".join(i))
+print(2**N-1)
+solve(N, 1, 3, 2)
