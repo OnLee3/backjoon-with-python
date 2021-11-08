@@ -1,20 +1,21 @@
 import sys
 
-N, M = map(int, sys.stdin.readline().split())
-A = list(map(int, sys.stdin.readline().split()))
-Max = 300000
-Answer = 0
+N = int(sys.stdin.readline())
 
 
-def solve(N, M, A, Max, Answer):
-    for i in range(N):
-        for j in range(i+1, N):
-            for k in range(j+1, N):
-                Sum = A[i]+A[j]+A[k]
-                if M-Sum < Max and Sum <= M:
-                    Max = M-Sum
-                    Answer = Sum
-    return Answer
+def solve(a):
+    if a > 17:
+        R = a - (len(str(a))*9)
+    else:
+        R = 0
+    for i in range(R, a):
+        tmp = i
+        for j in range(0, len(str(i))):
+            tmp += int(str(i)[j])
+        if tmp == a:
+            return i
+    else:
+        return 0
 
 
-print(solve(N, M, A, Max, Answer))
+print(solve(N))
