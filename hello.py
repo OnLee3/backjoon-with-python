@@ -1,16 +1,37 @@
 import sys
 
-N = int(sys.stdin.readline())
+N, M = map(int, sys.stdin.readline().split())
+L = [sys.stdin.readline().rstrip() for _ in range(N)]
 A = []
-R = []
 
-for _ in range(N):
-    A.append(list(map(int, sys.stdin.readline().split())))
 
-for i in range(N):
-    cnt = 1
-    for j in range(N):
-        if A[i][0] < A[j][0] and A[i][1] < A[j][1]:
-            cnt += 1
-    R.append(str(cnt))
-print(" ".join(R))
+def makeGame(flag, y, x):
+    cnt = 0
+    for i in range(8):
+        if i > 0:
+            if flag == "W":
+                flag = "B"
+            elif flag == "B":
+                flag = "W"
+        for j in range(8):
+            if flag == "W" and L[y + i][x + j] != "W":
+                cnt += 1
+            elif flag == "B" and L[y + i][x + j] != "B":
+                cnt += 1
+            if flag == "W":
+                flag = "B"
+            elif flag == "B":
+                flag = "W"
+    return cnt
+
+
+for y in range(N):
+    if y + 8 > N:
+        break
+    for x in range(M):
+        if x + 8 > M:
+            break
+        A.append(min(makeGame("W", y, x), makeGame("B", y, x)))
+
+
+print(min(A))
