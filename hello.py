@@ -1,11 +1,6 @@
 import sys
 
 N = int(sys.stdin.readline())
-movie = 666
-
-while N:
-    if "666" in str(movie):
-        N -= 1
-    movie += 1
-
-print(movie - 1)
+List = [int(sys.stdin.readline()) for _ in range(N)]
+List.sort()
+[print(i) for i in List]
