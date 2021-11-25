@@ -1,23 +1,31 @@
 import sys
+from collections import Counter
 
 N = int(sys.stdin.readline())
-A = sorted(map(int, sys.stdin.readline().split()))
-M = int(sys.stdin.readline())
-B = list(map(int, sys.stdin.readline().split()))
+A = sorted([int(sys.stdin.readline()) for _ in range(N)])
 
 
-def solve(check, array, start, end):
-    if start > end:
-        return(0)
-    mid = (start + end)//2
-    if array[mid] == check:
-        return(1)
-    elif array[mid] > check:
-        return solve(check, array, start, mid-1)
+def Avg():
+    return round(sum(A) / N)
+
+
+def Mid():
+    return A[N // 2]
+
+
+def Mode():
+    mode = Counter(A).most_common(2)
+    if len(mode) > 1 and mode[0][1] == mode[1][1]:
+        return mode[1][0]
     else:
-        return solve(check, array, mid+1, end)
+        return mode[0][0]
 
 
-s = 0
-e = len(A)-1
-[print(solve(i, A, s, e)) for i in B]
+def Range():
+    return max(A) - min(A)
+
+
+print(Avg())
+print(Mid())
+print(Mode())
+print(Range())
