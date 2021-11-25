@@ -1,24 +1,23 @@
 import sys
 
 N = int(sys.stdin.readline())
-count = [0 for _ in range(10)]
+A = sorted(map(int, sys.stdin.readline().split()))
+M = int(sys.stdin.readline())
+B = list(map(int, sys.stdin.readline().split()))
 
 
-def pageCount(pages, pValue):
-    if pages:
-        replaced = int(str(pages//10) + "9")
-        gap = replaced - pages
-
-        for i in range(len(count)):
-            count[i] += (pages//10 + 1) * pValue
-        for i in range(10-gap, 10):
-            count[i] -= pValue
-        for i in list(str(pages)[:-1]):
-            count[int(i)] -= gap * pValue
-
-        count[0] -= pValue
-        pageCount(pages//10, pValue*10)
+def solve(check, array, start, end):
+    if start > end:
+        return(0)
+    mid = (start + end)//2
+    if array[mid] == check:
+        return(1)
+    elif array[mid] > check:
+        return solve(check, array, start, mid-1)
+    else:
+        return solve(check, array, mid+1, end)
 
 
-pageCount(N, 1)
-print(" ".join(map(str, count)))
+s = 0
+e = len(A)-1
+[print(solve(i, A, s, e)) for i in B]
