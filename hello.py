@@ -1,13 +1,17 @@
 import sys
 
-N = int(sys.stdin.readline().rstrip())
-List = []
+T = int(sys.stdin.readline().rstrip())
 
-for i in range(N):
-    a, b = map(int, sys.stdin.readline().split())
-    List.append([b, a])
+zero = [1, 0, 1]
+one = [0, 1, 1]
 
-List = sorted(List)
 
-for i in range(N):
-    print(List[i][1], List[i][0])
+def solve(N):
+    if len(zero) > N:
+        return (str(zero[N]), str(one[N]))
+    zero.append(zero[len(zero)-2] + zero[len(zero)-1])
+    one.append(one[len(one)-2] + one[len(one)-1])
+    return solve(N)
+
+
+[print(" ".join(solve(int(sys.stdin.readline()))))for _ in range(T)]
