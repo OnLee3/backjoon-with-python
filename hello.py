@@ -1,11 +1,15 @@
 import sys
 
 N = int(sys.stdin.readline())
-List = []
+List = list(map(int, sys.stdin.readline().split()))
+sortedList = sorted(set(List))
+dictList = {}
+answer = []
 
-for _ in range(N):
-    age, name = sys.stdin.readline().rstrip().split()
-    List.append([int(age), name])
+for i in range(len(sortedList)):
+    dictList[sortedList[i]] = i
 
-for age, name in sorted(List, key=lambda x: x[0]):
-    print(age, name)
+for i in List:
+    answer.append(str(dictList[i]))
+
+print(" ".join(answer))
