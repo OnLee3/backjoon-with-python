@@ -1,17 +1,11 @@
 import sys
 
-T = int(sys.stdin.readline().rstrip())
+N = int(sys.stdin.readline())
+List = list(set(sys.stdin.readline().rstrip() for _ in range(N)))
+sortedList = []
 
-zero = [1, 0, 1]
-one = [0, 1, 1]
+for i in List:
+    sortedList.append((len(i), i))
 
-
-def solve(N):
-    if len(zero) > N:
-        return (str(zero[N]), str(one[N]))
-    zero.append(zero[len(zero)-2] + zero[len(zero)-1])
-    one.append(one[len(one)-2] + one[len(one)-1])
-    return solve(N)
-
-
-[print(" ".join(solve(int(sys.stdin.readline()))))for _ in range(T)]
+for length, word in sorted(sortedList):
+    print(word)
