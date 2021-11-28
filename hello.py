@@ -1,11 +1,11 @@
 import sys
 
 N = int(sys.stdin.readline())
-List = list(set(sys.stdin.readline().rstrip() for _ in range(N)))
-sortedList = []
+List = []
 
-for i in List:
-    sortedList.append((len(i), i))
+for _ in range(N):
+    age, name = sys.stdin.readline().rstrip().split()
+    List.append([int(age), name])
 
-for length, word in sorted(sortedList):
-    print(word)
+for age, name in sorted(List, key=lambda x: x[0]):
+    print(age, name)
