@@ -1,15 +1,8 @@
 import sys
+from itertools import combinations
 
-N = int(sys.stdin.readline())
-List = list(map(int, sys.stdin.readline().split()))
-sortedList = sorted(set(List))
-dictList = {}
-answer = []
+N, M = map(int, sys.stdin.readline().split())
+List = [i for i in range(1, N+1)]
 
-for i in range(len(sortedList)):
-    dictList[sortedList[i]] = i
-
-for i in List:
-    answer.append(str(dictList[i]))
-
-print(" ".join(answer))
+for i in list(combinations(List, M)):
+    print(" ".join(map(str, i)))
