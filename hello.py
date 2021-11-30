@@ -1,8 +1,16 @@
 import sys
-from itertools import combinations_with_replacement
 
-N, M = map(int, sys.stdin.readline().split())
-List = [i for i in range(1, N+1)]
 
-for i in list(combinations_with_replacement(List, M)):
-    print(" ".join(map(str, i)))
+def input():
+    return sys.stdin.readline().rstrip()
+
+
+N, K = map(int, input().split())
+List = [int(input()) for _ in range(N)]
+List.reverse()
+
+cnt = 0
+for i in List:
+    cnt += K // i
+    K = K % i
+print(cnt)
