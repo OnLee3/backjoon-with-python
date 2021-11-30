@@ -1,23 +1,19 @@
 import sys
-from operator import itemgetter
 
 
 def input():
     return sys.stdin.readline().rstrip()
 
 
+A, B, C = map(int, input().split())
 N = int(input())
-List = list(map(int, input().split()))
-answer = 0
 Max = 0
-cnt = 0
 
-for i in List:
-    if i > Max:
-        cnt = 0
-        Max = i
-    else:
-        cnt += 1
-    answer = max(cnt, answer)
+for _ in range(N):
+    Sum = 0
+    for __ in range(3):
+        a, b, c = map(int, input().split())
+        Sum += ((A*a) + (B*b) + (C*c))
+    Max = max(Max, Sum)
 
-print(answer)
+print(Max)
