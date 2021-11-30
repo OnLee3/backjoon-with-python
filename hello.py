@@ -7,17 +7,17 @@ def input():
 
 
 N = int(input())
-Schedule = []
-et = 0
+List = list(map(int, input().split()))
+answer = 0
+Max = 0
 cnt = 0
 
-for _ in range(N):
-    start, end = map(int, input().split())
-    Schedule.append([start, end])
-Schedule = sorted(Schedule, key=itemgetter(1, 0))
-
-for meeting in Schedule:
-    if meeting[0] >= et:
+for i in List:
+    if i > Max:
+        cnt = 0
+        Max = i
+    else:
         cnt += 1
-        et = meeting[1]
-print(cnt)
+    answer = max(cnt, answer)
+
+print(answer)
