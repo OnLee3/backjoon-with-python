@@ -5,31 +5,21 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-T = int(input())
-remain = 1000000009
+N, M = map(int, input().split())
+Area = [list(map(int, input().split())) for _ in range(N)]
+DP = [[0] * M for _ in range(N)]
+DP[0][0] = Area[0][0]
 
 
-def Sum(N):
-    dp = [1, 2, 4]
-    if N > 3:
-        for _ in range(N-3):
-            dp.append((dp[-3] + dp[-2] + dp[-1]) % remain)
-    return dp
+def search(x, y):
+    for i in range(1, x):
+        DP[0][i] = Area[0][i] + DP[0][i-1]
+    for i in range(1, y):
+        DP[i][0] = Area[i][0] + DP[i-1][0]
+    for i in range(1, y):
+        for j in range(1, x):
+            DP[i][j] = Area[i][j] + max(DP[i-1][j], DP[i][j-1])
+    return DP[y-1][x-1]
 
 
-N = [int(input()) for _ in range(T)]
-result = Sum(max(N))
-
-[print(result[n-1])for n in N]
-
-
-# dp = [0 for _ in range(Max)]
-# dp[0] = 1
-# dp[1] = 2
-# dp[2] = 4
-
-
-# for i in range(3, Max):
-#     dp[i] = (dp[i-1] + dp[i-2] + dp[i-3]) % remain
-
-# [print(dp[int(input())-1]) for _ in range(T)]
+print(search(M, N))
