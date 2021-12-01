@@ -5,13 +5,21 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-N, K = map(int, input().split())
-Schedule = [int(input()) for _ in range(N)]
-Gap = []
+T = int(input())
 
-for i in range(N-1):
-    Gap.append(Schedule[i+1] - Schedule[i])
-if K != 1:
-    Gap = sorted(Gap)[:-(K-1)]
 
-print(sum(Gap) + K)
+def solve(N):
+    if N <= 0:
+        return 0
+    if N == 1:
+        return 1
+    if N == 2:
+        return 2
+    if N == 3:
+        return 4
+    if N == 4:
+        return 7
+    return (solve(N-3) + solve(N-2) + solve(N-1))
+
+
+[print(solve(int(input()))) for _ in range(T)]
