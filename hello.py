@@ -5,12 +5,17 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
+T = int(input())
+
+
 def solve(N):
-    dp = [0, 1, 2, 3, 5, 8]
-    if N > 5:
-        for i in range(N-5):
-            dp.append((dp[-2] + dp[-1]) % 15746)
-    return dp[N]
+    dp = [0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9]
+    if N > 10:
+        for i in range(N-10):
+            dp.append((dp[-1] + dp[-5]))
+    return dp
 
 
-print(solve(int(input())))
+N = [int(input()) for _ in range(T)]
+DP = solve(max(N))
+[print(DP[n]) for n in N]
