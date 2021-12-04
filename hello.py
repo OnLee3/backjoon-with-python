@@ -5,17 +5,21 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-T = int(input())
+N = int(input())
+List = []
 
+for _ in range(N):
+    a, b, c = map(int, input().split())
+    List.append([a, b, c])
+dp = List
 
-def solve(N):
-    dp = [0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9]
-    if N > 10:
-        for i in range(N-10):
-            dp.append((dp[-1] + dp[-5]))
-    return dp
+for i in range(1, N):
+    for j in range(3):
+        if j == 0:
+            dp[i][j] += min(dp[i-1][j+1], dp[i-1][j+2])
+        elif j == 1:
+            dp[i][j] += min(dp[i-1][j-1], dp[i-1][j+1])
+        else:
+            dp[i][j] += min(dp[i-1][j-2], dp[i-1][j-1])
 
-
-N = [int(input()) for _ in range(T)]
-DP = solve(max(N))
-[print(DP[n]) for n in N]
+print(min(dp[N-1]))
