@@ -14,9 +14,9 @@ def solve(x):
         if len(heap) == 0:
             print(0)
         else:
-            print(heapq.heappop(heap)[1])
+            print(heapq.heappop(heap))
     else:
-        heapq.heappush(heap, (-x, x))
+        heapq.heappush(heap, x)
 
 
 [solve(int(input())) for _ in range(int(input()))]
