@@ -6,24 +6,16 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-def solve(N):
-    if N == 1:
-        return 0
-    else:
-        heap = []
-        answer = 0
+N, K = map(int, input().split())
+Prime = list(map(int, input().split()))
+heap = []
+[heapq.heappush(heap, x) for x in Prime]
 
-        for _ in range(N):
-            heapq.heappush(heap, int(input()))
-
-        for _ in range(N-1):
-            deck1 = heapq.heappop(heap)
-            deck2 = heapq.heappop(heap)
-            answer += deck1 + deck2
-            heapq.heappush(heap, deck1 + deck2)
-
-        return answer
-
-
-N = int(input())
-print(solve(N))
+for i in range(K):
+    current = heapq.heappop(heap)
+    for j in range(N):
+        heapq.heappush(heap, current * Prime[j])
+        if current % Prime[j] == 0:
+            break
+else:
+    print(current)
