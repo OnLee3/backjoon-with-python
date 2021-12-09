@@ -5,27 +5,23 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-def check(x):
-    for i in range(x):
-        if col[x] == col[i] or abs(col[i]-col[x]) == x-i:
-            return False
-    return True
-
-
-def dfs(x):
-    global answer
-    if x == N:
-        answer += 1
-        return
-    for i in range(N):
-        col[x] = i
-        if check(x):
-            dfs(x+1)
-
-
 N = int(input())
-answer = 0
-col = [0]*15
+List = [list(map(int, input().split())) for i in range(N)]
 
-dfs(0)
-print(answer)
+
+def solve(N):
+    dp = [[0]*i for i in range(1, N+1)]
+    dp[0][0] = List[0][0]
+    for i in range(1, N):
+        for j in range(i+1):
+            dp[i][j] = List[i][j]
+            if j == 0:
+                dp[i][j] += dp[i-1][0]
+            elif j == i:
+                dp[i][j] += dp[i-1][j-1]
+            else:
+                dp[i][j] += max(dp[i-1][j-1], dp[i-1][j])
+    return max(dp[N-1])
+
+
+print(solve(N))
