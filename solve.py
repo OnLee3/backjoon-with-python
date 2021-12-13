@@ -10,25 +10,11 @@ Stack = []
 
 
 def solve(x):
-    if x[0] == 'push':
-        Stack.append(int(x[1]))
-    elif x[0] == 'pop':
-        if len(Stack):
-            print(Stack.pop())
-        else:
-            print(-1)
-    elif x[0] == 'size':
-        print(len(Stack))
-    elif x[0] == 'empty':
-        if len(Stack):
-            print(0)
-        else:
-            print(1)
-    elif x[0] == 'top':
-        if len(Stack):
-            print(Stack[-1])
-        else:
-            print(-1)
+    if x == 0:
+        Stack.pop()
+    else:
+        Stack.append(x)
 
 
-[solve(list(input().split())) for _ in range(N)]
+[solve(int(input())) for _ in range(N)]
+print(sum(Stack))
