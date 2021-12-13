@@ -6,15 +6,22 @@ def input():
 
 
 N = int(input())
-Stack = []
 
 
-def solve(x):
-    if x == 0:
-        Stack.pop()
+def solve(PS):
+    Stack = []
+    for x in PS:
+        if x == "(":
+            Stack.append(x)
+        else:
+            if len(Stack):
+                Stack.pop()
+            else:
+                return "NO"
+    if len(Stack):
+        return "NO"
     else:
-        Stack.append(x)
+        return "YES"
 
 
-[solve(int(input())) for _ in range(N)]
-print(sum(Stack))
+[print(solve(input())) for _ in range(N)]
