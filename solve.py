@@ -5,13 +5,13 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-N = int(input())
-List = list(map(int, input().split()))
-List.sort()
-answer = 0
-current = 0
-
-for x in List:
-    current += x
-    answer += current
-print(answer)
+while True:
+    A, B = map(int, input().split())
+    if A == 0 and B == 0:
+        break
+    elif B % A == 0:
+        print("factor")
+    elif A % B == 0:
+        print("multiple")
+    else:
+        print('neither')
