@@ -1,5 +1,4 @@
 import sys
-from collections import deque
 
 
 def input():
@@ -7,28 +6,33 @@ def input():
 
 
 N = int(input())
-M = int(input())
-graph = [[] for _ in range(N+1)]
-visited = [False] * (N+1)
-
-for _ in range(M):
-    a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)
+List = [list(map(int, input())) for _ in range(N)]
+answer = []
+cnt = 0
 
 
-def bfs():
-    cnt = 0
-    visited[1] = True
-    Queue = deque([1])
-    while Queue:
-        V = Queue.popleft()
-        for i in graph[V]:
-            if not visited[i]:
-                Queue.append(i)
-                visited[i] = True
-                cnt += 1
+def dfs(x, y):
+    global cnt
+    if List[x][y] == 1:
+        List[x][y] = 0
+        cnt += 1
+        if x+1 < N:
+            dfs(x+1, y)
+        if x-1 >= 0:
+            dfs(x-1, y)
+        if y+1 < N:
+            dfs(x, y+1)
+        if y-1 >= 0:
+            dfs(x, y-1)
     return cnt
 
 
-print(bfs())
+for i in range(N):
+    for j in range(N):
+        if List[i][j] == 1:
+            cnt = 0
+            answer.append(dfs(i, j))
+
+answer.sort()
+print(len(answer))
+[print(i) for i in answer]
