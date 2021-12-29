@@ -6,40 +6,29 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-N, M, V = map(int, input().split())
-visited = [False] * (N+1)
+N = int(input())
+M = int(input())
 graph = [[] for _ in range(N+1)]
+visited = [False] * (N+1)
 
 for _ in range(M):
     a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
-for i in range(1, N+1):
-    graph[i].sort()
 
-
-def dfs(v):
-    visited[v] = True
-    print(v, end=" ")
-    for i in graph[v]:
-        if not visited[i]:
-            dfs(i)
-
-
-def bfs(v):
-    visited[v] = True
-    Queue = deque([v])
+def bfs():
+    cnt = 0
+    visited[1] = True
+    Queue = deque([1])
     while Queue:
-        v = Queue.popleft()
-        print(v, end=" ")
-        for i in graph[v]:
+        V = Queue.popleft()
+        for i in graph[V]:
             if not visited[i]:
                 Queue.append(i)
                 visited[i] = True
+                cnt += 1
+    return cnt
 
 
-dfs(V)
-print()
-visited = [False] * (N+1)
-bfs(V)
+print(bfs())
