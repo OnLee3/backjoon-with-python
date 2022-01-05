@@ -1,18 +1,29 @@
 import sys
+from itertools import combinations
 
 
 def input():
     return sys.stdin.readline().rstrip()
 
 
-S = input()
-List = []
-answer = 0
+def isValid(perm):
+    vowelCount = 0
+    consonantCount = 0
+    for letter in perm:
+        if letter in vowel:
+            vowelCount += 1
+        else:
+            consonantCount += 1
+    if consonantCount < 2 or vowelCount < 1:
+        return False
+    return True
 
-for i in S:
-    if i in List:
-        answer += len(List) - List.index(i) - 1
-        List.remove(i)
-    else:
-        List.append(i)
-print(answer)
+
+vowel = ['a', 'e', 'i', 'o', 'u']
+
+L, C = map(int, input().split())
+List = sorted(list(input().split()))
+perm = list(combinations(List, L))
+result = list(filter(isValid, perm))
+
+[print("".join(i)) for i in result]
