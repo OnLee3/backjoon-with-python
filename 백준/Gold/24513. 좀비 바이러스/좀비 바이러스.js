@@ -54,27 +54,27 @@ const readline = require("readline").createInterface({
   output: process.stdout,
 });
 
-let input = [];
-let board = [];
+const input = [];
+const board = [];
 let count = 0;
 
 readline
   .on("line", function (line) {
     if (count === 0) {
-      input.push(line.split(' '));
+      input.push(line.split(' ').map(el => parseInt(el)));
       count++;
     } 
-    else if (0 < count && count <= parseInt(input[0][0]))   {
-      input.push(line.split(' '));
+    else if (0 < count && count <= input[0][0])   {
+      input.push(line.split(' ').map(el => parseInt(el)));
       count++;
-      if (count === parseInt(input[0][0])+1) readline.close();
+      if (count === input[0][0]+1) readline.close();
     }
   })
   .on("close", function () {
-    const n = parseInt(input[0][0]);
-    const m = parseInt(input[0][1]);
+    const n = input[0][0];
+    const m = input[0][1];
     for (let i=1; i<=n; i++){
-      board.push(input[i].map(el => parseInt(el)));
+      board.push(input[i]);
     }
     solution(n, m, board)
     process.exit();
@@ -83,18 +83,16 @@ readline
 const solution = (n, m, board) => {
   const moveType = [[0, 1], [0, -1], [1, 0], [-1, 0]];
   const dp = [];
-  const virus = [];
   const q = new Queue();
   
   for (let i=0; i<n; i++){
     const tmp = [];
     for (let j=0; j<m; j++){
-      if (board[i][j] > 0) virus.push([board[i][j], i, j])
+      if (board[i][j] > 0) q.push([board[i][j], i, j])
       tmp.push(0);
     }
     dp.push(tmp);
   }
-  for (let x of virus) q.push(x);
 
   while (q.size() > 0){
     const value = q.popleft();
