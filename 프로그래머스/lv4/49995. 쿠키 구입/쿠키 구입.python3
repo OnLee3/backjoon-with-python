@@ -1,0 +1,26 @@
+def solution(cookie):
+    answer=0
+    n = len(cookie)
+    
+    for l in range(n-1):
+        m = l
+        r = l+1
+        big=cookie[m]
+        small=cookie[r]
+        while m < n and r < n:
+            if big == small:
+                answer = max(answer, big)
+            if big <= small:
+                m += 1
+                if m < n:
+                    big += cookie[m]
+                    small -= cookie[m]
+                if m == r:
+                    r += 1
+                    if r < n:
+                        small += cookie[r]
+            elif big > small:
+                r += 1
+                if r < n:
+                    small += cookie[r]
+    return answer
