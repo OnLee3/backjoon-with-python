@@ -1,0 +1,26 @@
+def solution(id_list, report, k):
+    D = dict()
+    reported = dict()
+    answer = dict()
+    
+    for ID in id_list:
+        D[ID] = set()
+        reported[ID] = 0 
+        answer[ID] = 0
+    
+    for rep in report:
+        a, b = rep.split()
+        D[a].add(b)
+    
+    for key, value in D.items():
+        result = list(value)
+        if result:
+            for res in result:
+                reported[res] += 1
+        
+    for key, value in D.items():
+        for v in list(value):
+            if reported[v] >= k:
+                answer[key] += 1
+    
+    return list(answer.values())
