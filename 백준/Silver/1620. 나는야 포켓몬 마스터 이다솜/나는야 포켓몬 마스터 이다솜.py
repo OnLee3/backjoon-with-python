@@ -4,17 +4,12 @@ def input():
   return sys.stdin.readline().rstrip()  
 
 n, m = map(int, input().split())
+dic = {}
 
-stack = []
-
-for _ in range(n):
-  stack.append(input())
-
+for i in range(1, n+1):
+  v = input()
+  dic[str(i)] = v
+  dic[v] = i
 for _ in range(m):
-  inp = input()
-  try:
-    v = int(inp)
-    print(stack[v-1])
-  except ValueError:
-    v = inp
-    print(stack.index(v)+1)
+  v = input()
+  print(dic[v])
