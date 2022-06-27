@@ -1,28 +1,18 @@
 import sys
-from collections import deque
 
 def input():
   return sys.stdin.readline().rstrip()  
 
 n = int(input())
+dp = [[] for _ in range(n+1)]
+dp[1].append(1)
 
-def bfs(n):
-  q = deque([[n]])
-  while q:
-    state = q.popleft()
-    if (state[-1] == 1):
-      return state
-    if (state[-1] % 3 == 0):
-      cur = state[:]
-      cur.append(state[-1]//3)
-      q.append(cur)
-    if (state[-1] % 2 == 0):
-      cur = state[:]
-      cur.append(state[-1]//2)
-      q.append(cur)
-    cur = state[:]
-    cur.append(state[-1]-1)
-    q.append(cur)
-answer = list(map(str, bfs(n)))
-print(len(answer)-1)
+for i in range(2, n+1):
+  dp[i] = dp[i-1]+[i]
+  if i%3 == 0 and len(dp[i]) > len(dp[i//3])+1:
+    dp[i] = dp[i//3] + [i]
+  if i%2 == 0 and len(dp[i]) > len(dp[i//2])+1:
+    dp[i] = dp[i//2] + [i]
+answer = list(map(str, reversed(dp[n])))
+print(len(answer) - 1)
 print(" ".join(answer))
