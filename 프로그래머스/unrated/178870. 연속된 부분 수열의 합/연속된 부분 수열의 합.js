@@ -2,11 +2,16 @@ function solution(sequence, k) {
     let start = 0;
     let end = 0;
     let currentSum = sequence[0];
-    const answerList = [];
+    let minLength = Infinity;
+    let bestAnswer;
 
     while (start < sequence.length && end < sequence.length) {
         if (currentSum === k) {
-            answerList.push([[start, end], end - start]);
+            const length = end - start;
+            if (length < minLength) {
+                minLength = length;
+                bestAnswer = [start, end];
+            }
             currentSum -= sequence[start];
             start++;
         } else if (currentSum < k) {
@@ -19,9 +24,6 @@ function solution(sequence, k) {
             start++;
         }
     }
-    answerList.sort((a, b) => {
-        if (a[1] >= b[1]) return 1;
-        return -1;
-    });
-    return answerList[0][0];
+
+    return bestAnswer;
 }
