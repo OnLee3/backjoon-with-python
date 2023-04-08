@@ -1,6 +1,16 @@
 def solution(phone_book):
-    phone_book.sort()
-    for i in range(len(phone_book) - 1):
-        if phone_book[i+1].startswith(phone_book[i]):
+    prefix_map = {}
+
+    for number in phone_book:
+        for i in range(len(number)):
+            prefix = number[:i+1]
+            if prefix in prefix_map:
+                prefix_map[prefix] += 1
+            else:
+                prefix_map[prefix] = 1
+
+    for number in phone_book:
+        if prefix_map[number] > 1:
             return False
+
     return True
