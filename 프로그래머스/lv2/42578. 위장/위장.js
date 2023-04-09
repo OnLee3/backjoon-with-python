@@ -1,17 +1,14 @@
 function solution(clothes) {
-    const combination = {};
-    const clothesLength = [];
-    
-    for (let i = 0; i < clothes.length; i ++) {
-        if (combination.hasOwnProperty(clothes[i][1])) {
-            combination[clothes[i][1]].push(clothes[i][0]);
-        } else {
-            combination[clothes[i][1]] = [clothes[i][0]];   
-        }
-    }
-    for (const [key, value] of Object.entries(combination)) {
-        clothesLength.push(value.length + 1);
+    const clothingCounts = new Map();
+
+    for (const [name, type] of clothes) {
+        clothingCounts.set(type, (clothingCounts.get(type) || 0) + 1);
     }
 
-    return clothesLength.reduce((a, b) => a * b, 1) - 1;
+    let combinations = 1;
+    for (const count of clothingCounts.values()) {
+        combinations *= (count + 1);
+    }
+
+    return combinations - 1;
 }
