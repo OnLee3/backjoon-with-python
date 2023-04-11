@@ -16,10 +16,11 @@ function solution(answers) {
     }
     
     const maxScore = Math.max(...scores);
-    for (let i = 0; i < scores.length; i++) {
-        if (maxScore === scores[i]) {
+    for (const [i, score] of scores.entries()) {
+        if (maxScore === score) {
             answer.push(i+1);
         }
     }
+    
     return answer;
 }
